@@ -44,6 +44,7 @@ public class HttpFileServer {
         } finally {
             bossGroup.shutdownGracefully();
             workGroup.shutdownGracefully();
+
         }
     }
 
