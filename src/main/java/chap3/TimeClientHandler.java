@@ -17,17 +17,15 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
     private byte [] req;
 
     public TimeClientHandler(){
-        req = "Query Time Order".getBytes();
+        req = ("Query Time Order"+System.getProperty("line.separator")).getBytes();
         firstMessage = Unpooled.buffer(req.length);
         firstMessage.writeBytes(req);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg;
-        byte[] req = new byte[byteBuf.readableBytes()];
-        byteBuf.readBytes(req);
-        String reqs = new String(req,"utf-8");
+
+        String reqs = (String)msg;
         System.out.println("now is "+reqs);
     }
 

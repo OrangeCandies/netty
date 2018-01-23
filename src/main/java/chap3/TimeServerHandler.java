@@ -11,12 +11,10 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf read = (ByteBuf) msg;
-        byte[] bytes = new byte[read.readableBytes()];
-        read.readBytes(bytes);
-        String body = new String(bytes,"utf-8");
+
+        String body = (String)msg;
         System.out.println("Receiver message :"+body);
-        String resp = "Query time order".equalsIgnoreCase(body)?new Date(System.currentTimeMillis()).toString():"Bad request";
+        String resp = "Query time order".equalsIgnoreCase(body)?new Date(System.currentTimeMillis()).toString()+"\r\n":"Bad request\r\n";
         ByteBuf response =  Unpooled.copiedBuffer(resp.getBytes());
         ctx.write(response);
 
