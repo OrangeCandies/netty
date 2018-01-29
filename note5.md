@@ -1,4 +1,4 @@
-####EventLoop和Nettty的线程模型
+####EventLoop和Nettty的线程模型####
 
 一个EventLoop将由一个永远都不会的Thread驱动，同时任务可以直接提交给EventLoop实现
 以立即执行或者调度执行。**根据配置和可用核心的不同，一个EventLoop可能会有多个实例用以优化资源的使用**
@@ -19,3 +19,5 @@
  对于阻塞操作，建议使用一个专门的EventLoop解决
  **对于Channel使用ThreadLoacal解决一些问题时错误的，因为多个Channel可能会共享一个EventLoop，而一个EventLoop被一个线程所持有**
  对于OIO情况又有些不同，EventLoopGroup会为每一个Channel分配一个EventLoop
+ 
+ ####Bootstrap###
