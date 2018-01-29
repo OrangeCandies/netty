@@ -20,4 +20,20 @@
  **对于Channel使用ThreadLoacal解决一些问题时错误的，因为多个Channel可能会共享一个EventLoop，而一个EventLoop被一个线程所持有**
  对于OIO情况又有些不同，EventLoopGroup会为每一个Channel分配一个EventLoop
  
- ####Bootstrap###
+ ###Bootstrap###
+ 
+ Bootstrap在引导的过程中 必须设置的3个组件
+ * group()
+ * channel()
+ * handler()
+ 
+ 引导顺序
+ 1. 在bind()方法被调用时候，ServerBootStrap会创建一个新的ServerChannel实例
+ 2. ServerChannel会创建新的Channel来处理新的连接
+ 3. 新的Channel中也可以创建新的BootStrap 而通过channel.eventloop()来实现共享EventLoop
+ 
+ >引导过程中添加多个ChannelHandler
+ 
+ 可以给bootstrap设置channelhandler时候添加一个ChannelInitializer实例
+ 它需要一个继承自Channel的类  在它被注册到EventLoop之后会被调用它的initChannel方法
+ 这样可以获取Pipeline实例 来组装handler链
